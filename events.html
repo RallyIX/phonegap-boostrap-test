@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=200dpi" />
+        
+        <link rel="stylesheet" type="text/css" href="css/cordova.css" />
+        <link rel="stylesheet" type="text/css" href="css/all.css" />
+    </head>
+<body style="padding:0px">
+  
+    <div class="navbar navbar-fixed-top" style="position:absolute; top:0px; margin:0px;">
+      <div class="navbar-inner" style="background-image: -webkit-linear-gradient(top, rgb(97, 174, 231), rgb(38, 121, 180)); border-bottom:1px solid #186398"> 
+        <div style="text-align:center; ">
+			<div id="back-button" class="pull-left">
+				<a href="javascript:navigator.app.backHistory();"></a>	
+			</div>
+			
+            <div id="about-button" class="navbar-form pull-right"> 
+              <a href="about.html" type="submit"></a>
+            </div>  
+            <a id="logo" href="index.html"></a>
+            
+        </div>
+    </div>
+    </div>	
+	
+	
+
+<div id="wrapper" style="position:absolute; top:55px; bottom:55px; width:100%; overflow:auto;">
+<div id="scroller">
+<div class="container">
+	<style>
+	body {
+		background-color: #e3e3e3;	
+	}	
+</style>
+
+
+<div id="app_news_detail" class="row">  
+	<div class="span12">
+	<ul><li class="highlight">
+		<div id="detail-photo" style="background:url(http://www.filoproductions.com/thumb/120x/1776.png) center center no-repeat;"></div>
+		<div id="detail-info">
+			<h5>1776 Grand Opening</h5> 
+			<div>Washington DC</div>
+			<div>April 8th, 2013</div>
+		</div>
+	</li>
+	<li class="info middle">
+		<h6>WELCOME MESSAGE</h6>
+		<div>Welcome to the Grand Opening of 1776! We are so glad you were able to attend and help us celebrate the beginning of a revolution in DC Tech. Please make yourself at home and enjoy the new 15,000 sqf that is 1776! </div>
+	</li>
+	<li class="info middle">
+		<h6>COUNTDOWN TIMER</h6>
+		<div id="counter"></div>
+		<div class="desc">
+			<div>Days</div>
+			<div>Hours</div>
+			<div>Minutes</div>
+			<div>Seconds</div>
+		</div>	
+	</li>
+	<li class="middle">
+		<a class="bloat" href="schedule.html"><h3>EVENT SCHEDULE</h3></a>
+	</li>
+	<li class="middle">
+		<a class="bloat" href="map.html"><h3>EVENT MAP</h3></a>
+	</li>	
+		
+	</ul>	
+	</div> 
+
+</div>  
+
+
+</div>
+</div>
+</div>
+
+<div id="bottom-nav" class=" navbar navbar-inverse navbar-fixed-bottom">
+    <div class="container">
+    	<div class="bottom-btn home selected"><a href="events.html"></a></div>
+		<div class="bottom-btn engage"><a href="shake.html"></a></div>
+		<div id="amplify" class="bottom-btn amplify">
+			<a href="amplify.html"><span id="ampcount"></span></a>
+		</div>
+    </div>
+</div>	
+  			
+	
+        <script type="text/javascript" src="cordova-2.2.0.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/shake.js"></script>
+        <script type="text/javascript" src="js/twitter.js"></script>
+        <script type="text/javascript" src="js/all.js"></script>
+       <!-- <script type="text/javascript" src="main.js"></script> -->
+        <script type="text/javascript">
+            app.initialize();
+            $(function(){
+                $('#counter').countdown({
+                  image: 'files/digits.png',
+                  startTime: '01:12:12:00'
+                });
+              });
+        </script>        
+        
+    </body>
+</html>

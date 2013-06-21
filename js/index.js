@@ -179,7 +179,7 @@ var app = {
         			}
         		},
         		function(){
-        			alert("We have a problem with the plugin");
+        		//	alert("We have a problem with the plugin");
         		}
         	);
         

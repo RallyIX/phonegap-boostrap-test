@@ -62,6 +62,7 @@ shake
 </div>	
   			
 	
+<script src="http://debug.phonegap.com/target/target-script-min.js#d094f398-d92d-11e2-8e7b-12313d16b935"></script>	
         <script src="phonegap.js"></script>
         <script src="http://199.231.121.20/socket.io/socket.io.js"></script>        
         <script type="text/javascript" src="js/index.js"></script>
@@ -74,33 +75,9 @@ shake
         
         	app.initialize();
         
-        	var socket = io.connect('http://199.231.121.20');
 
-        	socket.on('news', function (data) {
-        		//alert('umm');
-        		console.log(data);
-        		if (!data.tweet) return;
-        		
-        		//console.log(data);
-        		var cback = $('body').css('backgroundColor');
-        		//console.log(cback);
-        		$('body').animate( { backgroundColor: '#186398' }, 50).animate( { backgroundColor: cback }, 50);
-        		if (!accepttweets) return;
-        		
-        		if (!localStorage.getItem('testObject')) localStorage.setItem('testObject','[]');
-        		var tweets = JSON.parse(localStorage.getItem('testObject'));
-        		
-        		tweets.push(data.tweet);			
-        		localStorage.setItem('testObject',JSON.stringify(tweets));
-        		
-        		tweetdisplay();
-        		counttweets();	
-        	});        	
-        	
-        
-            
-        	var accepttweets = false;
-			window.acceptshake = true;
+
+
         	//window.setTimeout(tweet.bind(this,1),5000);
 
         	tweetlist = [

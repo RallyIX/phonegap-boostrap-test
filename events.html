@@ -60,14 +60,8 @@
 		<a class="bloat" href="schedule.html"><h3>EVENT SCHEDULE</h3></a>
 	</li>
 	<li class="middle">
-		<a class="bloat" onclick="mapit('2600 BENJAMIN FRANKLIN PARKWAY, PHILADELPHIA, PA 19130')"><h3>EVENT MAP</h3></a>
+		<a class="bloat" onclick="mapit('2600 BENJAMIN FRANKLIN PARKWAY, PHILADELPHIA, PA 19130')"><h3>SHOW MAP</h3></a>
 	</li>	
-	<li class="middle">
-		<a class="bloat" onclick="mapit('PHILADELPHIA')"><h3>EVENT MAP</h3></a>
-	</li>		
-	<li class="middle">
-		<a class="bloat" onclick="mapid('PHILADELPHIA')"><h3>EVENT MAP</h3></a>
-	</li>		
 		
 	</ul>	
 	</div> 
@@ -108,15 +102,11 @@
 					message += seconds + " second" + ( seconds==1 ? '':'s' ) + " <br />";     
 					note.html(message);
 				}	
-			});	
-
-			function mapid(q) {
-				window.open('http://www.nhl.com', '_blank');
-			}			
+			});			
 			
 			function mapit(q) {
-				//window.open('http://maps.' + (window.chrome?'google':'apple') + '.com/?q=' + q , '_blank', 'location=yes');
-				window.open('http://maps.google.com/?q=' + escape(q) , '_blank');
+				window.open('http://maps.' + (window.chrome?'google':'apple') + '.com/?q=' + q , '_blank', 'location=yes');
+				//window.open('http://maps.google.com/?q=' + escape(q) , '_blank');
 			}
 			
         </script>        

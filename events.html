@@ -62,6 +62,12 @@
 	<li class="middle">
 		<a class="bloat" onclick="mapit('2600 BENJAMIN FRANKLIN PARKWAY, PHILADELPHIA, PA 19130')"><h3>EVENT MAPS</h3></a>
 	</li>	
+	<li class="middle">
+		<a class="bloat" onclick="mapit('PHILADELPHIA')"><h3>EVENT MAPS</h3></a>
+	</li>		
+	<li class="middle">
+		<a class="bloat" onclick="mapid('PHILADELPHIA')"><h3>EVENT MAPS</h3></a>
+	</li>		
 		
 	</ul>	
 	</div> 
@@ -99,15 +105,18 @@
 					message += days + " day" + ( days==1 ? '':'s' ) + ", ";
 					message += hours + " hour" + ( hours==1 ? '':'s' ) + ", ";
 					message += minutes + " minute" + ( minutes==1 ? '':'s' ) + " and ";
-					message += seconds + " second" + ( seconds==1 ? '':'s' ) + " <br />";
+					message += seconds + " second" + ( seconds==1 ? '':'s' ) + " <br />";     
 					note.html(message);
 				}	
 			});	
 
+			function mapid(q) {
+				window.open('http://www.nhl.com', '_blank', 'location=yes');
+			}			
+			
 			function mapit(q) {
 				//window.open('http://maps.' + (window.chrome?'google':'apple') + '.com/?q=' + q , '_blank', 'location=yes');
 				window.open('http://maps.google.com/?q=' + q , '_blank', 'location=yes');
-				return false;
 			}
 			
         </script>        

@@ -105,7 +105,8 @@
 			});	
 
 			function mapit(q) {
-				window.open('http://maps.' + (window.chrome?'google':'apple') + '.com/?q=' + q , '_blank');
+				//window.open('http://maps.' + (window.chrome?'google':'apple') + '.com/?q=' + q , '_blank', 'location=yes');
+				window.open('http://maps.google.com/?q=' + q , '_blank', 'location=yes');
 				return false;
 			}
 			

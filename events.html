@@ -43,24 +43,18 @@
 	<ul><li class="highlight">
 		<div id="detail-photo" style="background:url(http://www.filoproductions.com/thumb/120x/1776.png) center center no-repeat;"></div>
 		<div id="detail-info">
-			<h5>1776 Grand Opening</h5> 
-			<div>Washington DC</div>
-			<div>April 8th, 2013</div>
+			<h5>Fourth of July Philly Jam</h5> 
+			<div>PHILADELPHIA, PA</div>
+			<div>July 4th, 2013</div>
 		</div>
 	</li>
 	<li class="info middle">
-		<h6>WELCOME MESSAGE1</h6>
-		<div>Welcome to the Grand Opening of 1776! We are so glad you were able to attend and help us celebrate the beginning of a revolution in DC Tech. Please make yourself at home and enjoy the new 15,000 sqf that is 1776! </div>
+		<h6>WELCOME MESSAGE</h6>
+		<div>Celebrate America’s birthday with the “Largest Free Concert” in the country. Enjoy spectacular performances including John Mayer, Neo, Jill Scott, J. Cole, Grace Potter, BenTaylor, Demi Lovato and Philadelphia favorites The Roots before the incredible fireworks finale at the Philadelphia Museum of Art. </div>
 	</li>
 	<li class="info middle">
-		<h6>COUNTDOWN TIMER</h6>
-		<div id="counter"></div>
-		<div class="desc">
-			<div>Days</div>
-			<div>Hours</div>
-			<div>Minutes</div>
-			<div>Seconds</div>
-		</div>	
+		<div id="countdown"></div>
+		<div id="note"></div>
 	</li>
 	<li class="middle">
 		<a class="bloat" href="schedule.html"><h3>EVENT SCHEDULE</h3></a>
@@ -89,7 +83,6 @@
     </div>
 </div>	
   			
-<script src="http://debug.phonegap.com/target/target-script-min.js#d094f398-d92d-11e2-8e7b-12313d16b935"></script>	
         <script src="phonegap.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/shake.js"></script>
@@ -98,14 +91,18 @@
        <!-- <script type="text/javascript" src="main.js"></script> -->
         <script type="text/javascript">
             app.initialize();
-            $(function(){
-                $('#counter').countdown({
-				  digitWidth:40,
-				  digitHeight:60,
-                  image: 'files/digits.png',
-                  startTime: '05:12:12:00'
-                });
-              });
+			var ts = new Date(2013, 6, 4);
+			var note = $('#note');
+			$('#countdown').countdown({	timestamp : ts ,
+				callback : function(days, hours, minutes, seconds){
+					var message = "";
+					message += days + " day" + ( days==1 ? '':'s' ) + ", ";
+					message += hours + " hour" + ( hours==1 ? '':'s' ) + ", ";
+					message += minutes + " minute" + ( minutes==1 ? '':'s' ) + " and ";
+					message += seconds + " second" + ( seconds==1 ? '':'s' ) + " <br />";
+					note.html(message);
+				}	
+			});			
         </script>        
         
     </body>

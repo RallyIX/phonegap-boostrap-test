@@ -60,7 +60,7 @@
 		<a class="bloat" href="schedule.html"><h3>EVENT SCHEDULE</h3></a>
 	</li>
 	<li class="middle">
-		<a class="bloat" onclick="mapit('2600 BENJAMIN FRANKLIN PARKWAY, PHILADELPHIA, PA 19130')"><h3>EVENT MAP</h3></a>
+		<a class="bloat" onclick="mapit('2600 BENJAMIN FRANKLIN PARKWAY, PHILADELPHIA, PA 19130')"><h3>EVENT MAPS</h3></a>
 	</li>	
 		
 	</ul>	
@@ -105,7 +105,7 @@
 			});	
 
 			function mapit(q) {
-				window.open('http://maps.' + (window.chrome?'google':'apple') + '.com/?q=' + q , '_system');
+				window.open('http://maps.' + (window.chrome?'google':'apple') + '.com/?q=' + q , '_blank');
 				return false;
 			}
 			

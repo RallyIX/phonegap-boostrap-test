@@ -111,7 +111,7 @@
 		
 	}
 
-
+var myScroll = null;
 
 var app = {
     // Application Constructor

@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<title>title test!</title>
 	<link href="css/all.css" rel="stylesheet" media="">
-	<meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=0.5, target-densitydpi=medium-dpi, user-scalable=0" />
+	<meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=0.5, target-densitydpi=high-dpi, user-scalable=0" />
 </head>
 <body style="padding:0px; margin:0px; height:100%;">
 
@@ -233,12 +233,9 @@ woot!
 				$('a').not('.virgin').click(function(event) {
 					
 					try {					
-						alert(event.delegateTarget.href);
 						var page = event.delegateTarget.href.split('/');
 						event.stopImmediatePropagation();
 						event.preventDefault();
-						
-						return false;
 						
 						// redirect home page
 						if (page[3] == '') page = ['','','','index',-1,'listing'];
@@ -249,7 +246,7 @@ woot!
 							self.template_display(page.slice(3));
 						}
 					} catch(err) {
-						console.log(err);
+						alert(err);
 					}
 					
 					return false;

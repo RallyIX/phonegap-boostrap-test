@@ -53,6 +53,147 @@
 woot!
 
 	<script>
+	
+			
+		var kamiro = {
+			domClick : function(link) {
+				console.log(this);
+				return false;
+			},
+			domInit : function() {
+				var links = document.links;
+				for (var i=0; i<links.length; i++) {
+					if (!links[i].onclick && !links[i].target) {
+						links[i].onclick = this.domClick;
+					}
+				}		
+			}
+		}
+
+		$(document).ready(function() {
+			//kamiro.domInit();
+		});
+
+		//var socket = io.connect();
+		var tweeted = [];
+		var tweetstore = [];
+
+		function tweetpush(tweetpush) {
+			if (!localStorage.getItem('testObject')) localStorage.setItem('testObject','[]');
+			var tweets = JSON.parse(localStorage.getItem('testObject'));
+		//	console.log(tweets);
+			$.each(tweetpush, function(index, value) {	
+				if ($.inArray(value,tweets) == -1 && value && $.inArray(value,tweeted) == -1) {
+					tweets.push(value);
+				}
+			});
+			
+			localStorage.setItem('testObject',JSON.stringify(tweets));
+			
+			tweetdisplay();
+			counttweets();	
+		}
+
+
+		function tweetdisplay() {
+			if (!$('#tweetmessage')) return;
+			var tweets = JSON.parse(localStorage.getItem('testObject'));
+			if (tweets.length) {
+				$('#tweetmessage').html(tweets[0]);
+			} else {
+				$('#tweetmessage').html("GO GET SOME MORE TWEETS!");
+			}
+			counttweets();
+		}
+
+		function tweethash(o) {
+			var tweets = JSON.parse(localStorage.getItem('testObject'));
+			if (tweets.length > 0 && tweets[0].indexOf($(o).html()) === -1) {
+				tweets[0] = tweets[0] + ' ' + $(o).html();	
+			}
+			localStorage.setItem('testObject',JSON.stringify(tweets));
+			tweetdisplay();
+		}
+
+		function tweetcancel() {
+			var tweets = JSON.parse(localStorage.getItem('testObject'));
+			tweets.shift();
+			localStorage.setItem('testObject',JSON.stringify(tweets));
+			tweetdisplay();
+		}
+
+		function shook() {
+			tweetpush(tweetstore);
+			if (!accepttweets) {
+				$('body').animate( { backgroundColor: '#f7941e' }, 1000);	
+				var unshake = window.setTimeout(unshook,5000);
+			}
+			accepttweets = true;
+		}
+
+		function unshook() {
+			if (accepttweets) {
+				$('body').animate( { backgroundColor: '#f7941e' }, 100).animate( { backgroundColor: '#e3e3e3' }, 1000);		
+			}
+			accepttweets = false;
+		}
+
+		function counttweets() {
+			if (!localStorage.getItem('testObject')) {
+				localStorage.setItem('testObject','[]');
+			}		
+			var tweets = JSON.parse(localStorage.getItem('testObject'));
+			var tweetcount = tweets.length;
+			$('#ampcount').html(tweetcount);
+			if (tweetcount > 0) {
+				$('#ampcount').css('display', 'block');
+			} else {
+				$('#ampcount').css('display', 'none');	
+			}
+		}
+
+		function tweet(c) {
+				if (c==1) window.setTimeout(tweet.bind(this,1),10000);
+			
+				if (!accepttweets && c ==1 ) return;
+				
+				if (!localStorage.getItem('testObject')) {
+					localStorage.setItem('testObject','[]');
+				}
+			
+				var tweets = JSON.parse(localStorage.getItem('testObject'));
+				var ret = '';
+				
+				if (c == 1) {
+					var nexttweet = tweetlist.shift();
+					ret = tweets.push(nexttweet);
+					// stick it back in pile for test
+					tweetlist.push(nexttweet);
+					//console.log(tweetlist);
+				} else {
+					ret = tweets.shift();
+					tweeted.push(ret);
+					if (window.plugins) {	
+						window.plugins.twitter.composeTweet(
+							 function(){
+							 },
+							 function(){
+								alert("We have a problem with the plugin");
+							 },
+							 ret
+						);
+					}
+				}
+				
+				localStorage.setItem('testObject',JSON.stringify(tweets));
+				
+				tweetdisplay();
+				counttweets();
+				
+				return ret;
+		}
+
+	
 		var templates = {};
 		
 		kamiroo = {   
@@ -251,10 +392,7 @@ woot!
     </div>
 </div>	   
 
-<script src="http://apps.rallyplatform.com/templates"></script>
-<script src="http://debug.phonegap.com/target/target-script-min.js#d094f398-d92d-11e2-8e7b-12313d16b935"></script>	 
-
-
+<script src="http://apps.rallyplatform.com/templates"></script> 
 
 </mount>  			
 	

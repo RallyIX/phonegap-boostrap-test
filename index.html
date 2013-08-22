@@ -1,80 +1,277 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=200dpi" />
-        
-        <link rel="stylesheet" type="text/css" href="css/cordova.css" />
-        <link rel="stylesheet" type="text/css" href="css/all.css" />
-    </head>
-    <body style="padding:0px; margin:0px;">
-    <span id="shake"></span>
-    <!-- 	<span id="acctest">'ere mate</span><span id="h"></span><span id="x"></span><span id="y"></span><span id="z"></span>
-    	<span id="platform"></span>
-    	<span id="version"></span>
-    	<span id="uuid"></span>
-    	<span id="name"></span>
-    	<span id="width"></span>
-    	<span id="height"></span>
-    	<span id="colorDepth"></span>   -->
-    
-     <div class="navbar navbar-fixed-top" style="position:absolute; top:0px; margin:0px;">
-      <div class="navbar-inner" style="background-image: -webkit-linear-gradient(top, rgb(97, 174, 231), rgb(38, 121, 180)); border-bottom:1px solid #186398"> 
-        <div style="text-align:center; ">
-			<!-- <div id="back-button" class="pull-left">
-				<a href="javascript:window.history.back();"></a>	
-			</div> -->
+
+<!;DOCTYPE; HTML>  
+<html>    
+<head>
+	<meta charset="utf-8">
+	<title>title test!</title>
+	<link href="css/all.css" rel="stylesheet" media="">
+</head>
+<body style="padding:0px; margin:0px; height:100%;">
+
+	<script src="phonegap.js"></script>
+	<!-- <script src="/socket.io/socket.io.js"></script> -->
+	<script src="js/all.js"></script>
+	<!-- <script src="/common/kamiro/site.js"></script> -->
+	
+	<div id="left-nav" style='display:none'>
+    <nav class="nav">
+        <ul>
+            <li><a href="/">Change Event</a></li>
+            <!-- <li><a href="#usage">Saved Messages</a></li>
+            <li><a href="#documentation">Accounts</a></li> -->
+            <li><a id="help-link" href="/about1.html">Help</a></li>
+            <li><a id="about-link" href="/about.html">About</a></li>
+        </ul>
+    </nav>
+	</div>	
+	
+	<mount id="mount-body"><div class=" navbar navbar-fixed-top" style="position:absolute; top:0px; margin:0px;">
+	<div id="top-nav" class="navbar-inner">
+	
+			<div id="slide-menu" class="pull-left">
+				<a id="left-menu" class="virgin" href="#left-menu"></a> 
+			</div>			
 			
-	        
 			
+			<!--
+			<div id="options-menu" class="pull-right">
+				<a id="right-menu" class="virgin" href="#right-menu"></a> 
+			</div>
+			 
             <div id="about-button" class="navbar-form pull-right"> 
-              <a href="about.html" type="submit"></a>
-            </div>  
-            <a id="logo" href="index.html"></a>
-            
+				<a id="" href="/about" type="submit"></a>
+            </div> 
+			
+			-->	
+			
+            <a id="logo" href="/"></a>            
         </div>
     </div>
-    </div>			
+</div>	   
+<br><br><br><br><br><bR>
+woot!
 
-<div id="wrapper" style="position:absolute; top:55px; bottom:55px; width:100%; overflow:auto;">
-<div id="scroller">
-<div class="container">
-	<div id="app_news_main" class="row">  
-	<div class="span12">
-	<ul class="nav nav-tabs nav-stacked">
-		<li class="" style="">
-			<a href="events.html" style="height:105px">
-			<div style="float:right; padding-top:38px; text-align:right;"><i class="icon-chevron-right"></i></div>
-			<div style="float:left; height:100px; width:100px; margin-right:10px; cursor:pointer; background:url(http://alt1.rallyplatform.com/thumb/120x/event_photo.png) center center no-repeat; background-size:cover; border-radius:0px;"></div>
-			<div style="height:80px; padding-top:24px;">
-				<h4 style="line-height:20px; font-size:16px; text-align:left; padding:0px; margin:0px;">Fourth of July Philly Jam</h4>
-				<div style="text-align:left">PHILADELPHIA, PA</div>                  
-				<div style="text-align:left">July 4th, 2013</div> 
-			</div>
+	<script>
+		var templates = {};
+		
+		kamiroo = {   
+			templates : {},
+			template_load : function(templates) {
+				this.templates = templates;	
+				this.template_display(['index',-1,'listing']);				
+			},
+			template_display : function(name) {
+				if (typeof name == 'string') {
+					var pageName = name;
+					var pageData = {};
+				} else {
+					var pageName = name[0];	
+					var pluginID = name[1];
+					var pluginTemplate = Hogan.compile(this.templates.plugin['events'][name[2]]);
+					var pluginData = {
+						data : (pluginID < 0) ? this.templates.plugin['events']._data.data:jlinq.from(this.templates.plugin['events']._data.data).equals("ID",parseInt(pluginID)).select()
+					}
+					var pageData = {
+						plugin : {
+							events : {
+								id : pluginID,
+								section : 'event-page-' + name[2],
+								main : pluginTemplate.render(pluginData)
+							}
+						}
+					};	
+				}
+				var hello = Hogan.compile(this.templates.page[pageName]);
+				$('#mount-body').html(hello.render(pageData));
+				this.page_load();
+				this.url_replace();
+			},
+			url_replace : function() {
+				var self = this;
+				$('a').not('.virgin').click(function(event) {
+					
+					try {					
+						var page = event.delegateTarget.href.split('/');
+						event.stopImmediatePropagation();
+						event.preventDefault();
+						// redirect home page
+						if (page[3] == '') page = ['','','','index',-1,'listing'];
+	
+						if (page.length == 4) {
+							self.template_display(page[3].split('.')[0]);
+						} else {
+							self.template_display(page.slice(3));
+						}
+					} catch(err) {
+						console.log(err);
+					}
+					
+					return false;
+				});	
+			},
+			page_load : function() {
+				$('#left-menu').sidr({
+					name: 'sidr-left',
+					side: 'left',
+					source: '#left-nav'
+				});
+				$('#right-menu').sidr({
+					name: 'sidr-right',
+					side: 'right'
+				});
+				var myScroll = new iScroll('wrapper',{onBeforeScrollStart : null, snap:'li'});
+				      
+				//$(window).touchwipe({
+				//	wipeLeft: function() {
+					  // Close
+				//	  $.sidr('close', 'sidr-left');
+				//	},
+				//	wipeRight: function() {
+					  // Open
+				//	  $.sidr('open', 'sidr-left');
+				//	},
+				//	preventDefaultEvents: false
+				//});
+			}
+		}
+
+		function Shake() {
+
+			//feature detect
+			this.hasDeviceMotion = 'ondevicemotion' in window;
+
+			//default velocity threshold for shake to register
+			this.threshold = 15;
+
+			//use date to prevent multiple shakes firing
+			this.lastTime = new Date();
+
+			//accelerometer values
+			this.lastX = null;
+			this.lastY = null;
+			this.lastZ = null;
+
+			//create custom event
+			if (typeof CustomEvent === "function") {
+				this.event = new CustomEvent('shake', {
+					bubbles: true,
+					cancelable: true
+				});
+			} else if (typeof document.createEvent === "function") {
+				this.event = document.createEvent('Event');
+				this.event.initEvent('shake', true, true);
+			} else { 
+			  return false;
+			}
+		}
+
+		//reset timer values
+		Shake.prototype.reset = function () {
+			this.lastTime = new Date();
+			this.lastX = null;
+			this.lastY = null;
+			this.lastZ = null;
+		};
+
+		//start listening for devicemotion
+		Shake.prototype.start = function () {
+			this.reset();
+			if (this.hasDeviceMotion) { window.addEventListener('devicemotion', this, false); }
+		};
+
+		//stop listening for devicemotion
+		Shake.prototype.stop = function () {
+
+			if (this.hasDeviceMotion) { window.removeEventListener('devicemotion', this, false); }
+			this.reset();
+		};
+
+		//calculates if shake did occur
+		Shake.prototype.devicemotion = function (e) {
+
+			var current = e.accelerationIncludingGravity,
+				currentTime,
+				timeDifference,
+				deltaX = 0,
+				deltaY = 0,
+				deltaZ = 0;
+
+			if ((this.lastX === null) && (this.lastY === null) && (this.lastZ === null)) {
+				this.lastX = current.x;
+				this.lastY = current.y;
+				this.lastZ = current.z;
+				return;
+			}
+
+			deltaX = Math.abs(this.lastX - current.x);
+			deltaY = Math.abs(this.lastY - current.y);
+			deltaZ = Math.abs(this.lastZ - current.z);
+
+			if (((deltaX > this.threshold) && (deltaY > this.threshold)) || ((deltaX > this.threshold) && (deltaZ > this.threshold)) || ((deltaY > this.threshold) && (deltaZ > this.threshold))) {
+				//calculate time in milliseconds since last shake registered
+				currentTime = new Date();
+				timeDifference = currentTime.getTime() - this.lastTime.getTime();
+
+				if (timeDifference > 1000) {
+					window.dispatchEvent(this.event);
+					this.lastTime = new Date();
+				}
+			}
+
+			this.lastX = current.x;
+			this.lastY = current.y;
+			this.lastZ = current.z;
+
+		};
+
+		//event handler
+		Shake.prototype.handleEvent = function (e) {
+
+			if (typeof (this[e.type]) === 'function') {
+				return this[e.type](e);
+			}
+		};
+
+		//create a new instance of shake.js.
+		var myShakeEvent = new Shake();
+		myShakeEvent && myShakeEvent.start();
+		
+	</script>
+
+<div id="bottom-nav" class=" navbar navbar-inverse navbar-fixed-bottom">
+    <div class="container">
+    	<div class="bottom-btn home"><a id="detail-link" href="/events//detail"></a></div>
+		<div class="bottom-btn engage"><a id="engage-link" href="/events//shake"></a></div>
+		<div id="amplify" class="bottom-btn amplify">
+			<a href="/events//share">
+			<span id="ampcount"></span>
 			</a>
-		</li>
-	</ul>    
-	</div>      
-</div>  
-</div>
-</div>
-</div>
+		</div>
+    </div>
+</div>	   
 
-<div id="bottom-nav" class="navbar navbar-inverse navbar-fixed-bottom" style="position:absolute; bottom:0px; margin:0px">
-    <div class="container" style="text-align:center"></div>
-</div>
-  
-<script src="http://debug.phonegap.com/target/target-script-min.js#d094f398-d92d-11e2-8e7b-12313d16b935"></script>	   
-        <script src="phonegap.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript" src="js/shake.js"></script>
-        <script type="text/javascript" src="js/twitter.js"></script>
-        <script type="text/javascript" src="js/all.js"></script>
-       <!-- <script type="text/javascript" src="main.js"></script> -->
-        <script type="text/javascript">
-            app.initialize();
-        </script>        
-        
-    </body>
-</html>
+<script src="http://apps.rallyplatform.com/templates"></script>
+<script src="http://debug.phonegap.com/target/target-script-min.js#d094f398-d92d-11e2-8e7b-12313d16b935"></script>	 
+
+
+
+</mount>  			
+	
+	<script type="text/javascript">
+	var myScroll = new iScroll('wrapper',{onBeforeScrollStart : null, snap:'li'});
+	</script>	
+	
+	<script>
+	$(document).ready(function() {
+		if (kamiroo) {
+			kamiroo.url_replace();
+		}		
+	});
+	
+
+	
+	</script>	
+	
+    
+</body> 
+</html>  

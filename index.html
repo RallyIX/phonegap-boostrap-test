@@ -54,25 +54,7 @@ woot!
 
 	<script>
 	
-			
-		var kamiro = {
-			domClick : function(link) {
-				console.log(this);
-				return false;
-			},
-			domInit : function() {
-				var links = document.links;
-				for (var i=0; i<links.length; i++) {
-					if (!links[i].onclick && !links[i].target) {
-						links[i].onclick = this.domClick;
-					}
-				}		
-			}
-		}
-
-		$(document).ready(function() {
-			//kamiro.domInit();
-		});
+		alert(1.1);
 
 		//var socket = io.connect();
 		var tweeted = [];

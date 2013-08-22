@@ -233,9 +233,13 @@ woot!
 				$('a').not('.virgin').click(function(event) {
 					
 					try {					
+						alert(event.delegateTarget.href);
 						var page = event.delegateTarget.href.split('/');
 						event.stopImmediatePropagation();
 						event.preventDefault();
+						
+						return false;
+						
 						// redirect home page
 						if (page[3] == '') page = ['','','','index',-1,'listing'];
 	
